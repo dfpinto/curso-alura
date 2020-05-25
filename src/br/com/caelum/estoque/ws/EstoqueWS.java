@@ -21,13 +21,14 @@ import br.com.caelum.estoque.modelo.usuario.TokenDao;
 import br.com.caelum.estoque.modelo.usuario.TokenUsuario;
 
 @WebService
+// O padrão é DOCUMENT, LITERAL e WRAPPER.
 @SOAPBinding(style = Style.DOCUMENT, use = Use.LITERAL, parameterStyle = ParameterStyle.WRAPPED)
 public class EstoqueWS {
 
 	private ItemDao dao = new ItemDao();
 
-	@WebMethod(operationName = "todosOsItens")
-	@WebResult(name = "item")
+	@WebMethod(operationName = "todosOsItens") // dá nome a operação no wsdl
+	@WebResult(name = "itens") // dá nome ao nó de resposta do wsdl enviado pelo servidor (response0
 	public ListaItens getItens(@WebParam(name = "filtros") Filtros filtros) {
 		System.out.println("Chamando getItens()");
 		List<Filtro> lista = filtros.getLista();
@@ -35,8 +36,8 @@ public class EstoqueWS {
 		return new ListaItens(itensResultado);
 	}
 
-	@WebMethod(operationName = "CadastrarItem")
-	@WebResult(name = "item")
+	@WebMethod(operationName = "cadastrarItem")
+	@WebResult(name = "itens")
 	public Item cadastrarItem(@WebParam(name = "tokenUsuario", header = true) TokenUsuario token,
 			@WebParam(name = "item") Item item) throws AuthorizationException {
 

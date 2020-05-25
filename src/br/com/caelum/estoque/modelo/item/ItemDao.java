@@ -44,7 +44,7 @@ public class ItemDao {
 		return resultados;
 	}
 
-	//este método existe apenas para facilitar o primeiro exercicio que não usa o filtro
+	//este m�todo existe apenas para facilitar o primeiro exercicio que não usa o filtro
 	public ArrayList<Item> todosItens() {
 		return new ArrayList<>(ITENS.values());
 	}
