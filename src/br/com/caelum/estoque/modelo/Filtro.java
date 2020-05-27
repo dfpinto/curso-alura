@@ -1,4 +1,4 @@
-package br.com.caelum.estoque.modelo.item;
+package br.com.caelum.estoque.modelo;
 
 
 public class Filtro {

@@ -10,13 +10,15 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
+import javax.xml.ws.RequestWrapper;
+import javax.xml.ws.ResponseWrapper;
 
 import br.com.caelum.estoque.exception.AuthorizationException;
-import br.com.caelum.estoque.modelo.item.Filtro;
-import br.com.caelum.estoque.modelo.item.Filtros;
-import br.com.caelum.estoque.modelo.item.Item;
-import br.com.caelum.estoque.modelo.item.ItemDao;
-import br.com.caelum.estoque.modelo.item.ListaItens;
+import br.com.caelum.estoque.modelo.Filtro;
+import br.com.caelum.estoque.modelo.Filtros;
+import br.com.caelum.estoque.modelo.Item;
+import br.com.caelum.estoque.modelo.ItemDao;
+import br.com.caelum.estoque.modelo.ListaItens;
 import br.com.caelum.estoque.modelo.usuario.TokenDao;
 import br.com.caelum.estoque.modelo.usuario.TokenUsuario;
 
@@ -28,12 +30,14 @@ public class EstoqueWS {
 	private ItemDao dao = new ItemDao();
 
 	@WebMethod(operationName = "todosOsItens") // dá nome a operação no wsdl
-	@WebResult(name = "itens") // dá nome ao nó de resposta do wsdl enviado pelo servidor (response0
-	public ListaItens getItens(@WebParam(name = "filtros") Filtros filtros) {
+	@WebResult(name = "item") // dá nome ao nó de resposta do wsdl enviado pelo servidor (response)
+	@ResponseWrapper(localName = "itens")
+	@RequestWrapper(localName = "listaItens")
+	public List<Item> getItens(@WebParam(name = "filtros") Filtros filtros) {
 		System.out.println("Chamando getItens()");
 		List<Filtro> lista = filtros.getLista();
 		List<Item> itensResultado = dao.todosItens(lista);
-		return new ListaItens(itensResultado);
+		return itensResultado;
 	}
 
 	@WebMethod(operationName = "cadastrarItem")

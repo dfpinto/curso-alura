@@ -1,4 +1,4 @@
-package br.com.caelum.estoque.modelo.item;
+package br.com.caelum.estoque.modelo;
 
 import java.util.ArrayList;
 import java.util.List;
